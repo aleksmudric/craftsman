@@ -14,7 +14,7 @@
         public void Run(string[] args)
         {
             var myEnv = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
+            var solutionDir = Environment.GetEnvironmentVariable("SOLUTION_DIR");
             if (args.Length == 0)
             {
                 ListCommand.Run();
@@ -34,7 +34,6 @@
                     NewApiCommand.Help();
                 else
                 {
-                    var solutionDir = myEnv == "Dev" ? fileSystem.Path.Combine(@"C:","Users","Paul","Documents","testoutput") : fileSystem.Directory.GetCurrentDirectory();
                     NewApiCommand.Run(filePath, solutionDir, fileSystem);
                 }
             }
@@ -46,7 +45,6 @@
                     AddEntityCommand.Help();
                 else
                 {
-                    var solutionDir = myEnv == "Dev" ? fileSystem.Path.Combine(@"C:","Users","Paul","Documents","testoutput") : fileSystem.Directory.GetCurrentDirectory();
                     AddEntityCommand.Run(filePath, solutionDir, fileSystem);
                 }
             }
@@ -63,6 +61,7 @@
                         .WithParsed(options =>
                         {
                             entityName = options.Entity.UppercaseFirstLetter();
+                            solutionDir = fileSystem.Path.Combine(solutionDir, options.SolutionName);
                             newProperty = new EntityProperty()
                             {
                                 Name = options.Name,
@@ -73,7 +72,6 @@
                             };
                         });
 
-                    var solutionDir = myEnv == "Dev" ? fileSystem.Path.Combine(@"C:","Users","Paul","Documents","testoutput") : fileSystem.Directory.GetCurrentDirectory();
                     AddEntityPropertyCommand.Run(solutionDir, entityName, newProperty);
                 }
             }

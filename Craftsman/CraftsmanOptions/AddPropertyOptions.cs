@@ -22,5 +22,8 @@
 
         [Option('k', "foreignkey", Required = false, HelpText = "When adding an object linked by a foreign key, use this field to enter the name of the property that acts as the foreign key")]
         public string ForeignKeyPropName { get; set; }
+
+        [Option('d', "directory", Required = false, HelpText = "Name of the solution i.e. name of the root directory")]
+        public string SolutionName { get; set; }
     }
 }

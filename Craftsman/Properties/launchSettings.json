@@ -2,8 +2,11 @@
   "profiles": {
     "Craftsman Dev": {
       "commandName": "Project",
+      "commandLineArgs": "add:entity d:\\Projects\\DDDgenerated\\Company.yml",
+      //"commandLineArgs": "add:property -e User -n Location -t Location -k LocationId -d ArpajaqueExample",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Dev"
+        "ASPNETCORE_ENVIRONMENT": "Dev",
+        "SOLUTION_DIR": "d:\\Projects\\DDDgenerated"
       }
     },
     "Craftsman": {

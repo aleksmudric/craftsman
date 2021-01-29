@@ -56,6 +56,8 @@
 
                 //var solutionDirectory = Directory.GetCurrentDirectory();
                 //var solutionDirectory = @"C:\Users\Paul\Documents\testoutput\MyApi.Mine";
+                
+                solutionDirectory = fileSystem.Path.Combine(solutionDirectory, template.SolutionName);
                 template = SolutionGuard(solutionDirectory, template);
                 template = GetDbContext(solutionDirectory, template);
 
