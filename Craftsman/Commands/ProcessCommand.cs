@@ -68,7 +68,10 @@
                                 Type = options.Type,
                                 CanFilter = options.CanFilter,
                                 CanSort = options.CanSort,
-                                ForeignKeyPropName = options.ForeignKeyPropName
+                                ForeignKeyPropName = options.ForeignKeyPropName,
+                                IsArrayType = options.IsArrayType,
+                                IsNavigationProperty = options.IsNavigationProperty,
+                                ArrayTypeName = options.ArrayTypeName
                             };
                         });
 

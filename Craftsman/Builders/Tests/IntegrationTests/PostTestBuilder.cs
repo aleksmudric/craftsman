@@ -49,6 +49,8 @@
             var assertString = "";
             foreach (var prop in entity.Properties)
             {
+                if (prop.IsArrayType)
+                    continue;
                 var newLine = prop == entity.Properties.LastOrDefault() ? "" : $"{Environment.NewLine}";
                 assertString += @$"                {entity.Name.LowercaseFirstLetter()}ById.{prop.Name}.Should().Be(fake{entity.Name}.{prop.Name});{newLine}";
             }
@@ -87,6 +89,8 @@ namespace {classPath.ClassNamespace}
             var assertString = "";
             foreach (var prop in entity.Properties.Where(p => p.IsPrimaryKey == false))
             {
+                if (prop.IsArrayType)
+                    continue;//continue arrays for now
                 var newLine = prop == entity.Properties.LastOrDefault() ? "" : $"{Environment.NewLine}";
                 assertString += @$"            resultDto.{prop.Name}.Should().Be(fake{entity.Name}.{prop.Name});{newLine}";
             }

@@ -48,6 +48,8 @@
             var assertString = "";
             foreach (var prop in entity.Properties)
             {
+                if (prop.IsArrayType)
+                    continue; //skip arrays for now
                 var newLine = prop == entity.Properties.LastOrDefault() ? "" : $"{Environment.NewLine}";
                 assertString += @$"                {entity.Name.LowercaseFirstLetter()}ById.{prop.Name}.Should().Be(fake{entity.Name}.{prop.Name});{newLine}";
             }

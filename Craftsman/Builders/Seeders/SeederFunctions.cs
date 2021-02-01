@@ -29,11 +29,11 @@
         {{
             if (!context.{entity.Plural}.Any())
             {{
-                context.{entity.Plural}.Add(new AutoFaker<{entity.Name}>());
-                context.{entity.Plural}.Add(new AutoFaker<{entity.Name}>());
-                context.{entity.Plural}.Add(new AutoFaker<{entity.Name}>());
+                //context.{entity.Plural}.Add(new AutoFaker<{entity.Name}>());
+                //context.{entity.Plural}.Add(new AutoFaker<{entity.Name}>());
+                //context.{entity.Plural}.Add(new AutoFaker<{entity.Name}>());
 
-                context.SaveChanges();
+                //context.SaveChanges();
             }}
         }}
     }}

@@ -108,10 +108,15 @@
             var paramBase = entity.Name.LowercaseFirstLetter();
             var pkPropertyType = entity.PrimaryKeyProperty.Type;
             var pkPropertyName = entity.PrimaryKeyProperty.Name;
-            var fkIncludes = "";
+            var includes = "";
             foreach(var fk in entity.Properties.Where(p => p.IsForeignKey))
             {
-                fkIncludes += $@"{Environment.NewLine}                .Include({fk.Name.ToLower().Substring(0, 1)} => {fk.Name.ToLower().Substring(0, 1)}.{fk.Name})";
+                includes += $@"{Environment.NewLine}                .Include({fk.Name.ToLower().Substring(0, 1)} => {fk.Name.ToLower().Substring(0, 1)}.{fk.Name})";
+            }
+
+            foreach (var np in entity.Properties.Where(p => p.IsNavigationProperty))
+            {
+                includes += $@"{Environment.NewLine}                .Include({np.Name.ToLower().Substring(0, 1)} => {np.Name.ToLower().Substring(0, 1)}.{np.Name})";
             }
 
             return @$"namespace {classNamespace}
@@ -149,7 +154,7 @@
                 throw new ArgumentNullException(nameof({paramBase}Parameters));
             }}
 
-            var collection = _context.{entity.Plural}{fkIncludes}
+            var collection = _context.{entity.Plural}{includes}
                 as IQueryable<{entity.Name}>; // TODO: AsNoTracking() should increase performance, but will break the sort tests. need to investigate
 
             var sieveModel = new SieveModel
@@ -168,14 +173,14 @@
         public async Task<{entity.Name}> Get{entity.Name}Async({pkPropertyType} {paramBase}Id)
         {{
             // include marker -- requires return _context.{entity.Plural} as it's own line with no extra text -- do not delete this comment
-            return await _context.{entity.Plural}{fkIncludes}
+            return await _context.{entity.Plural}{includes}
                 .FirstOrDefaultAsync({entity.Lambda} => {entity.Lambda}.{entity.PrimaryKeyProperty.Name} == {paramBase}Id);
         }}
 
         public {entity.Name} Get{entity.Name}({pkPropertyType} {paramBase}Id)
         {{
             // include marker -- requires return _context.{entity.Plural} as it's own line with no extra text -- do not delete this comment
-            return _context.{entity.Plural}{fkIncludes}
+            return _context.{entity.Plural}{includes}
                 .FirstOrDefault({entity.Lambda} => {entity.Lambda}.{entity.PrimaryKeyProperty.Name} == {paramBase}Id);
         }}
 

@@ -27,7 +27,8 @@
         {
             var propString = dto == Dto.Creation || dto == Dto.Update ? "" : DtoPropBuilder(entity.Properties, dto);
             var fkUsingStatements = "";
-            var abstractString = dto == Dto.Manipulation ? $"abstract" : "";
+            /*no abstract since cannot be instantiated for navigation properties*/
+            var abstractString = "";//dto == Dto.Manipulation ? $"abstract" : "";
             var auditableUsing = entity.Auditable ? @$"{Environment.NewLine}    using Domain.Common;" : "";
 
             var inheritanceString = "";
@@ -88,7 +89,7 @@
                     }                    
                 }
                 else
-                    propString += $@"        public {Utilities.PropTypeCleanup(props[eachProp].Type)} {props[eachProp].Name} {{ get; set; }}{newLine}";
+                    propString += $@"        public {Utilities.GetDtoTypeName(props[eachProp], dto)} {props[eachProp].Name} {{ get; set; }}{newLine}";
             }
 
             return propString;

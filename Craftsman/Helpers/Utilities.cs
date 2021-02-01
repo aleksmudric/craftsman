@@ -93,6 +93,41 @@
             }
         }
 
+        public static string GetDtoTypeName(EntityProperty property, Dto dto)
+        {
+            switch (dto)
+            {
+                case Dto.Manipulation:
+                    return $"{GetDtoTypeName(property, "ForManipulationDto")}";
+                case Dto.Creation:
+                    return $"{GetDtoTypeName(property, "ForCreationDto")}";
+                case Dto.Update:
+                    return $"{GetDtoTypeName(property, "ForUpdateDto")}";
+                case Dto.Read:
+                    return $"{GetDtoTypeName(property, "Dto")}";
+                case Dto.ReadParamaters:
+                    return $"{GetDtoTypeName(property, "ParametersDto")}";
+                default:
+                    throw new Exception($"Name generator not configured for {Enum.GetName(typeof(Dto), dto)}");
+            }
+        }
+        public static string GetDtoTypeName(EntityProperty entityProperty, string dtoSuffix)
+        {
+            string baseType = PropTypeCleanup(entityProperty.Type);
+
+            if (entityProperty.IsArrayType)
+                if (entityProperty.IsNavigationProperty)
+                    return entityProperty.ArrayTypeName + "<" + baseType + dtoSuffix + ">";
+                else
+                    return entityProperty.ArrayTypeName + "<" + baseType + ">";
+
+            else
+                if (entityProperty.IsNavigationProperty)
+                    return baseType + dtoSuffix;
+                else
+                    return baseType;
+        }
+
         public static string ValidatorNameGenerator(string entityName, Validator validator)
         {
             switch (validator)

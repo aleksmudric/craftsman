@@ -98,5 +98,22 @@ namespace Craftsman.Models
         /// </summary>
         public string ColumnName { get; set; }
 
+        /// <summary>
+        ///  Designates the property as a navigation property 
+        /// </summary>
+        public bool IsNavigationProperty { get; set; }
+
+        /// <summary>
+        ///  Designates the property as an array type 
+        /// </summary>
+        public bool IsArrayType { get; set; }
+
+        /// <summary>
+        /// Determines the name of array type as 'List', 'IQueriable', 'ICollection' 
+        /// </summary>
+        public string ArrayTypeName { get; set; }
+
+
+
     }
 }

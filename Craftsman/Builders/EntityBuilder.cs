@@ -91,7 +91,7 @@
                 var defaultValue = props[eachProp].DefaultValue == null ? "" : $" = {props[eachProp].DefaultValue};";
 
                 string newLine = eachProp == props.Count - 1 ? "" : $"{Environment.NewLine}{Environment.NewLine}";
-                propString += $@"        public {props[eachProp].Type} {props[eachProp].Name} {{ get; set; }}{defaultValue}{newLine}";
+                propString += $@"        public {TypeBuilder(props[eachProp])} {props[eachProp].Name} {{ get; set; }}{defaultValue}{newLine}";
             }
 
             return propString;
@@ -117,5 +117,15 @@
 
             return attributeString;
         }
+
+        private static string TypeBuilder(EntityProperty entityProperty)
+        {
+
+            if (entityProperty.IsArrayType)
+                return entityProperty.ArrayTypeName + "<" + entityProperty.Type + ">";
+            else
+                return entityProperty.Type;
+
+        }            
     }
 }

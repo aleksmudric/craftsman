@@ -91,6 +91,11 @@ namespace {classPath.ClassNamespace}
 
             foreach(var prop in entity.Properties)
             {
+                if (prop.IsArrayType)
+                {
+                    /* skip arrays - add logic for arrays later */
+                    continue;
+                }
                 var newLine = prop == entity.Properties.LastOrDefault() ? "" : $"{Environment.NewLine}";
                 assertString += @$"                {entity.Name.LowercaseFirstLetter()}ById.{prop.Name}.Should().Be(fake{entity.Name}.{prop.Name});{newLine}";
             }

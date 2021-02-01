@@ -25,5 +25,15 @@
 
         [Option('d', "directory", Required = false, HelpText = "Name of the solution i.e. name of the root directory")]
         public string SolutionName { get; set; }
+
+        [Option('p', "navigationProperty", Required = false, HelpText = "Determines if the property is a navigation property")]
+        public bool IsNavigationProperty { get; set; }
+
+        [Option('a', "array", Required = false, HelpText = "Determines if the property is an array")]
+        public bool IsArrayType { get; set; }
+
+        [Option('r', "arrayTypeName", Required = false, HelpText = "Name of the type of the array (List, ArrayList, Vector,....)")]
+
+        public string ArrayTypeName { get; set; }
     }
 }
